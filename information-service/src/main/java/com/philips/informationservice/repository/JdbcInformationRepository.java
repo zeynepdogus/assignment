@@ -7,6 +7,7 @@ import com.philips.informationservice.model.Professor;
 import com.philips.informationservice.model.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,8 +32,13 @@ public class JdbcInformationRepository implements InformationRepository{
 
     @Override
     public Course findCourseById(int id) {
-        String query = queryBuilder.buildFindCourseById(id);
-        return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Course.class));
+        try {
+            String query = queryBuilder.buildFindCourseById(id);
+            return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Course.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
     }
 
     @Override

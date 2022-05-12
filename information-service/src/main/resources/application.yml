@@ -12,3 +12,6 @@ spring:
                 jdbc:
                     lob:
                         non_contextual_creation: true
+server:
+    error:
+        include-message: always

@@ -9,7 +9,7 @@ public class QueryBuilderImpl implements QueryBuilder{
     @Override
     public String buildCreateQueryForCourse(int id, String name, int department_id, int credits) {
         return QueryConstants.INSERT_INTO_COURSE
-                + "(" + id + name + department_id + credits + ")";
+                + "(" + id + " , " + "'" + name + "'" + " , " + department_id + " , " + credits + ")";
     }
 
 
