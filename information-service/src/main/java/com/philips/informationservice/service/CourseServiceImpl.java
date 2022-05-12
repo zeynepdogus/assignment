@@ -2,6 +2,9 @@ package com.philips.informationservice.service;
 
 import com.philips.informationservice.model.Course;
 import com.philips.informationservice.repository.JdbcInformationRepository;
+import com.philips.informationservice.service.exception.CourseAlreadyExistsException;
+import com.philips.informationservice.service.exception.CourseCreateException;
+import com.philips.informationservice.service.exception.CourseNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
