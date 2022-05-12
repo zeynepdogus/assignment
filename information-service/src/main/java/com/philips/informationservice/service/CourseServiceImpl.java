@@ -42,5 +42,6 @@ public class CourseServiceImpl implements CourseService {
         }
         Course car = courseById.get();
         repository.deleteCourseById(car.getId());
+
     }
 }
