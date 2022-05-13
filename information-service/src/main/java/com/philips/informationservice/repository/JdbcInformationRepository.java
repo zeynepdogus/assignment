@@ -1,16 +1,15 @@
 package com.philips.informationservice.repository;
 
 import com.philips.informationservice.builder.QueryBuilder;
-import com.philips.informationservice.model.Course;
-import com.philips.informationservice.model.Department;
-import com.philips.informationservice.model.Professor;
-import com.philips.informationservice.model.Schedule;
+import com.philips.informationservice.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -56,8 +55,12 @@ public class JdbcInformationRepository implements InformationRepository{
 
     @Override
     public Department findDepartmentById(int id) {
-        String query = queryBuilder.buildFindDepartmentById(id);
-        return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Department.class));
+        try {
+            String query = queryBuilder.buildFindDepartmentById(id);
+            return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Department.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -75,8 +78,12 @@ public class JdbcInformationRepository implements InformationRepository{
 
     @Override
     public Professor findProfessorById(int id) {
-        String query = queryBuilder.buildFindProfessorById(id);
-        return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Professor.class));
+        try {
+            String query = queryBuilder.buildFindProfessorById(id);
+            return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Professor.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -94,13 +101,28 @@ public class JdbcInformationRepository implements InformationRepository{
 
     @Override
     public Schedule findSchedule(int professor_id, int course_id) {
-        String query = queryBuilder.buildFindSchedule(professor_id, course_id);
-        return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Schedule.class));
+        try {
+            String query = queryBuilder.buildFindSchedule(professor_id, course_id);
+            return jdbcTemplate.queryForObject(query, BeanPropertyRowMapper.newInstance(Schedule.class));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public int deleteSchedule(int professor_id, int course_id) {
         String query = queryBuilder.buildDeleteSchedule(professor_id, course_id);
         return jdbcTemplate.update(query);
+    }
+
+    @Override
+    public List<ProfessorDetails> findAllProfessors() {
+        String query = queryBuilder.buildFindAllProfessors();
+        return jdbcTemplate.query(query, (rs, rowNum) -> {
+            ProfessorDetails professorDetails = new ProfessorDetails();
+            professorDetails.setCourses((String[]) rs.getArray("courses").getArray());
+            professorDetails.setName(rs.getString("name"));
+            return professorDetails;
+        });
     }
 }

@@ -1,15 +1,18 @@
 package com.philips.informationservice.service.course;
 
 import com.philips.informationservice.model.Course;
+import com.philips.informationservice.model.ProfessorDetails;
 import com.philips.informationservice.repository.JdbcInformationRepository;
 import com.philips.informationservice.service.course.exception.CourseAlreadyExistsException;
 import com.philips.informationservice.service.course.exception.CourseCreateException;
 import com.philips.informationservice.service.course.exception.CourseNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service

@@ -74,4 +74,9 @@ public class QueryBuilderImpl implements QueryBuilder{
                 .replace("?", String.valueOf(professor_id))
                 .replace("?", String.valueOf(course_id));
     }
+
+    @Override
+    public String buildFindAllProfessors() {
+        return QueryConstants.SELECT_PROFESSOR_WITH_COURSES;
+    }
 }

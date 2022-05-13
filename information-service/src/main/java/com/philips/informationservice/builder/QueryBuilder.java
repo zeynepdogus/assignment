@@ -14,4 +14,5 @@ public interface QueryBuilder {
     public String buildCreateQueryForSchedule(int professor_id, int course_id, int semester, int year);
     public String buildFindSchedule(int professor_id, int course_id);
     public String buildDeleteSchedule(int professor_id, int course_id);
+    public String buildFindAllProfessors();
 }

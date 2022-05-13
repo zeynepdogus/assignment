@@ -1,6 +1,7 @@
 package com.philips.informationservice.service.professor;
 
 import com.philips.informationservice.model.Professor;
+import com.philips.informationservice.model.ProfessorDetails;
 import com.philips.informationservice.repository.JdbcInformationRepository;
 import com.philips.informationservice.service.professor.exception.ProfessorAlreadyExistsException;
 import com.philips.informationservice.service.professor.exception.ProfessorCreateException;
@@ -10,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +47,10 @@ public class ProfessorServiceImpl implements ProfessorService{
         }
         Professor professor = professorById.get();
         repository.deleteProfessorById(professor.getId());
+    }
+
+    @Override
+    public List<ProfessorDetails> findAllProfessors() {
+        return repository.findAllProfessors();
     }
 }
