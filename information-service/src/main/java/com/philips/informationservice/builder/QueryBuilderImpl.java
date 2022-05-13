@@ -26,7 +26,7 @@ public class QueryBuilderImpl implements QueryBuilder{
     @Override
     public String buildCreateQueryForDepartment(int id, String name) {
         return QueryConstants.INSERT_INTO_DEPARTMENT
-                + "(" + id + name + ")";
+                + "(" + id + " , " + "'" + name + "'" + ")";
     }
 
     @Override
@@ -42,7 +42,7 @@ public class QueryBuilderImpl implements QueryBuilder{
     @Override
     public String buildCreateQueryForProfessor(int id, String name, int department_id) {
         return QueryConstants.INSERT_INTO_PROFESSOR
-                + "(" + id + name + department_id + ")";
+                + "(" + id + " , " + "'" + name + "'" + " , " + department_id + ")";
     }
 
     @Override
@@ -58,7 +58,7 @@ public class QueryBuilderImpl implements QueryBuilder{
     @Override
     public String buildCreateQueryForSchedule(int professor_id, int course_id, int semester, int year) {
         return QueryConstants.INSERT_INTO_SCHEDULE
-                + "(" + professor_id + course_id + semester + year + ")";
+                + "(" + professor_id + " , " + course_id + " , " + semester + " , " + year + ")";
     }
 
     @Override

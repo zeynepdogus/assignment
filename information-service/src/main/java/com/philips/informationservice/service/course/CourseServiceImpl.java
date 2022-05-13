@@ -1,10 +1,10 @@
-package com.philips.informationservice.service;
+package com.philips.informationservice.service.course;
 
 import com.philips.informationservice.model.Course;
 import com.philips.informationservice.repository.JdbcInformationRepository;
-import com.philips.informationservice.service.exception.CourseAlreadyExistsException;
-import com.philips.informationservice.service.exception.CourseCreateException;
-import com.philips.informationservice.service.exception.CourseNotFoundException;
+import com.philips.informationservice.service.course.exception.CourseAlreadyExistsException;
+import com.philips.informationservice.service.course.exception.CourseCreateException;
+import com.philips.informationservice.service.course.exception.CourseNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,8 @@ public class CourseServiceImpl implements CourseService {
         if (courseById.isEmpty()) {
             throw new CourseNotFoundException();
         }
-        Course car = courseById.get();
-        repository.deleteCourseById(car.getId());
+        Course course = courseById.get();
+        repository.deleteCourseById(course.getId());
 
     }
 }

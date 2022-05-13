@@ -1,4 +1,4 @@
-package com.philips.informationservice.service;
+package com.philips.informationservice.service.course;
 
 import com.philips.informationservice.model.Course;
 
