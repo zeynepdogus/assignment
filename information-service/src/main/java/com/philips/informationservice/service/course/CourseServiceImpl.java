@@ -1,53 +1,60 @@
 package com.philips.informationservice.service.course;
 
 import com.philips.informationservice.model.Course;
-import com.philips.informationservice.model.ProfessorDetails;
-import com.philips.informationservice.repository.JdbcInformationRepository;
-import com.philips.informationservice.service.course.exception.CourseAlreadyExistsException;
-import com.philips.informationservice.service.course.exception.CourseCreateException;
-import com.philips.informationservice.service.course.exception.CourseNotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.philips.informationservice.repository.course.JDBCCourseRepository;
+import com.philips.informationservice.service.course.exception.CourseExceptionHandler;
 import lombok.extern.log4j.Log4j2;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Log4j2
 public class CourseServiceImpl implements CourseService {
 
+    private final JDBCCourseRepository repository;
+
     @Autowired
-    private JdbcInformationRepository repository;
+    public CourseServiceImpl(JDBCCourseRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void createCourse(Course course) {
         Optional<Course> courseById = Optional.ofNullable(repository.findCourseById(course.getId()));
         if (courseById.isPresent()) {
-            throw new CourseAlreadyExistsException();
+            throw new CourseExceptionHandler.CourseAlreadyExistsException();
         }
         int courseToBeAdded = repository.createCourse(course);
-        if(courseToBeAdded == 0)
-            throw new CourseCreateException();
+        if (courseToBeAdded == 0)
+            throw new CourseExceptionHandler.CourseCreateException();
     }
 
     @Override
     public Course getCourse(int id) {
         Optional<Course> courseOptional = Optional.ofNullable(repository.findCourseById(id));
-        return courseOptional.orElseThrow(CourseNotFoundException::new);
+        return courseOptional.orElseThrow(CourseExceptionHandler.CourseNotFoundException::new);
     }
 
     @Override
     public void deleteCourse(int id) {
         Optional<Course> courseById = Optional.ofNullable(repository.findCourseById(id));
         if (courseById.isEmpty()) {
-            throw new CourseNotFoundException();
+            throw new CourseExceptionHandler.CourseNotFoundException();
         }
         Course course = courseById.get();
         repository.deleteCourseById(course.getId());
 
+    }
+
+    private void waitForCache() {
+        log.info("Cache wait started.");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("Cache wait ended");
     }
 }

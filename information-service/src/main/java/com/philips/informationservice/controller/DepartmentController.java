@@ -9,26 +9,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/department-management")
 @RequiredArgsConstructor
 public class DepartmentController {
 
     @Autowired
     public DepartmentService departmentService;
 
-    @PostMapping("/create")
+    @PostMapping("/departments")
     public ResponseEntity<Department> createDepartment(@RequestBody Department course) {
         departmentService.createDepartment(course);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/departments/{id}")
     public ResponseEntity<Department> getDepartment(@PathVariable("id") int id) {
         Department course = departmentService.getDepartment(id);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/departments/{id}")
     public ResponseEntity<HttpStatus> deleteDepartment(@PathVariable("id") int id) {
         departmentService.deleteDepartment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

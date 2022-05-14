@@ -9,5 +9,5 @@ public class Professor {
 
     private int id;
     private String name;
-    private int department_id;
+    private int departmentId;
 }

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class Course {
     private int id;
     private String name;
-    private int department_id;
+    private int departmentId;
     private int credits;
 }

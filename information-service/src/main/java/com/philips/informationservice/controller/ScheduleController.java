@@ -9,27 +9,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/schedule")
+@RequestMapping("/schedule-management")
 @RequiredArgsConstructor
 public class ScheduleController {
 
     @Autowired
     public ScheduleService scheduleService;
 
-    @PostMapping("/create")
-    public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule course) {
-        scheduleService.createSchedule(course);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+    @PostMapping("/schedules")
+    public ResponseEntity<Schedule> createSchedule(@RequestBody Schedule schedule) {
+        scheduleService.createSchedule(schedule);
+        return new ResponseEntity<>(schedule, HttpStatus.OK);
     }
 
-    @GetMapping("/get/{professor_id}/{course_id}")
+    @GetMapping("/schedules/{professor_id}/{course_id}")
     public ResponseEntity<Schedule> getSchedule(@PathVariable("professor_id") int professor_id,
                                                 @PathVariable("course_id") int course_id) {
         Schedule course = scheduleService.getSchedule(professor_id, course_id);
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{professor_id}/{course_id}")
+    @DeleteMapping("/schedules/{professor_id}/{course_id}")
     public ResponseEntity<HttpStatus> deleteSchedule(@PathVariable("professor_id") int professor_id,
                                                      @PathVariable("course_id") int course_id) {
         scheduleService.deleteSchedule(professor_id, course_id);

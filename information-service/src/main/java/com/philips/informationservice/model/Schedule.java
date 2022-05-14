@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Schedule {
 
-    private int professor_id;
-    private int course_id;
+    private int professorId;
+    private int courseId;
     private int semester;
     private int year;
 }
