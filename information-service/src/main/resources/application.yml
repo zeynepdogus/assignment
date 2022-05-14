@@ -12,6 +12,9 @@ spring:
                 jdbc:
                     lob:
                         non_contextual_creation: true
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
 server:
     error:
         include-message: always
