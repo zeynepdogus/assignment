@@ -18,7 +18,7 @@ public class ScheduleController {
     @Autowired
     public ScheduleService scheduleService;
 
-    @PostMapping("/api/v1/schedules")
+    @PostMapping("/schedules")
     @ApiResponses(value = {@ApiResponse(code = 409, message = "Schedule already exists."),
             @ApiResponse(code = 500, message = "Schedule could not be created."),
             @ApiResponse(code = 404, message = "Schedule not found.")})
