@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Jdbc Implementation of Professor Repository
+ */
 @Repository
 public class JDBCProfessorRepository implements ProfessorRepository {
 
@@ -21,12 +24,23 @@ public class JDBCProfessorRepository implements ProfessorRepository {
 
     private final List<String> columns = Arrays.asList("id", "name", "department_id");
 
+    /**
+     * Constructor injection is used
+     * @param jdbcTemplate
+     * @param queryBuilder
+     */
     @Autowired
     public JDBCProfessorRepository(JdbcTemplate jdbcTemplate, ProfessorQueryBuilder queryBuilder) {
         this.jdbcTemplate = jdbcTemplate;
         this.queryBuilder = queryBuilder;
     }
 
+    /**
+     * Creating the professor using jdbc methods.
+     * It takes the professor object and inserts into db
+     * @param professor
+     * @return
+     */
     @Override
     public int createProfessor(Professor professor) {
         List<Object> parameters = Arrays.asList(professor.getId(), professor.getName(), professor.getDepartmentId());
@@ -34,6 +48,11 @@ public class JDBCProfessorRepository implements ProfessorRepository {
         return jdbcTemplate.update(query);
     }
 
+    /**
+     * Finds the professor with a professor id
+     * @param id
+     * @return
+     */
     @Override
     public Professor findProfessorById(int id) {
         try {
@@ -44,12 +63,21 @@ public class JDBCProfessorRepository implements ProfessorRepository {
         }
     }
 
+    /**
+     * Deletes the course with a professor id
+     * @param id
+     * @return
+     */
     @Override
     public int deleteProfessorById(int id) {
         String query = queryBuilder.buildDeleteByIdQuery(id);
         return jdbcTemplate.update(query);
     }
 
+    /**
+     * Finds all professors with their courses
+     * @return
+     */
     @Override
     public List<ProfessorDetails> findAllProfessors() {
         String query = queryBuilder.buildFindAllProfessors();

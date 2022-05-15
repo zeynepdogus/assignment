@@ -5,6 +5,9 @@ import com.philips.informationservice.model.ProfessorDetails;
 
 import java.util.List;
 
+/**
+ * Service Interface for method declarations of Professor
+ */
 public interface ProfessorService {
     public void createProfessor(Professor professor);
     public Professor getProfessor(int id);

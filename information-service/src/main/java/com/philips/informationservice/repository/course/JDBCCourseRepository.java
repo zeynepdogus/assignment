@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Jdbc Implementation of Course Repository
+ */
 @Repository
 public class JDBCCourseRepository implements CourseRepository {
 
@@ -20,12 +23,22 @@ public class JDBCCourseRepository implements CourseRepository {
 
     private final List<String> columns = Arrays.asList("id", "name", "department_id", "credits");
 
+    /**
+     * Constructor injection is used
+     * @param jdbcTemplate
+     * @param queryBuilder
+     */
     @Autowired
     public JDBCCourseRepository(JdbcTemplate jdbcTemplate, CourseQueryBuilder queryBuilder) {
         this.jdbcTemplate = jdbcTemplate;
         this.queryBuilder = queryBuilder;
     }
 
+    /**
+     * Creating the course using jdbc methods. It takes the course object and inserts into db
+     * @param course
+     * @return
+     */
     @Override
     public int createCourse(Course course) {
         List<Object> parameters = Arrays.asList(course.getId(), course.getName(),
@@ -34,6 +47,11 @@ public class JDBCCourseRepository implements CourseRepository {
         return jdbcTemplate.update(query);
     }
 
+    /**
+     * Finds the course with a course id
+     * @param id
+     * @return
+     */
     @Override
     public Course findCourseById(int id) {
         try {
@@ -45,6 +63,11 @@ public class JDBCCourseRepository implements CourseRepository {
 
     }
 
+    /**
+     * Deletes the course with a course id
+     * @param id
+     * @return
+     */
     @Override
     public int deleteCourseById(int id) {
         String query = queryBuilder.buildDeleteByIdQuery(id);

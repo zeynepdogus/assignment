@@ -20,6 +20,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.repository = repository;
     }
 
+    /**
+     * Service method to create a department object
+     * It @throws CourseAlreadyExistsException or CourseCreateException if the service fails
+     * @param department
+     */
     @Override
     public void createDepartment(Department department) {
         Optional<Department> departmentById = Optional.ofNullable(repository.findDepartmentById(department.getId()));
@@ -32,12 +37,23 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     }
 
+    /**
+     * Service method to find the department by id
+     * It @throws DepartmentNotFoundException if the service fails
+     * @param id
+     * @return
+     */
     @Override
     public Department getDepartment(int id) {
         Optional<Department> departmentOptional = Optional.ofNullable(repository.findDepartmentById(id));
         return departmentOptional.orElseThrow(DepartmentExceptionHandler.DepartmentNotFoundException::new);
     }
 
+    /**
+     * Service method to department by id
+     * It @throws DepartmentNotFoundException if the service fails
+     * @param id
+     */
     @Override
     public void deleteDepartment(int id) {
         Optional<Department> departmentById = Optional.ofNullable(repository.findDepartmentById(id));

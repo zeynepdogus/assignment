@@ -22,6 +22,11 @@ public class ProfessorServiceImpl implements ProfessorService {
         this.repository = repository;
     }
 
+    /**
+     * Service method to create a professor object
+     * It @throws ProfessorAlreadyExistsException or ProfessorCreateException if the service fails
+     * @param professor
+     */
     @Override
     public void createProfessor(Professor professor) {
         Optional<Professor> professorById = Optional.ofNullable(repository.findProfessorById(professor.getId()));
@@ -33,12 +38,23 @@ public class ProfessorServiceImpl implements ProfessorService {
             throw new ProfessorExceptionHandler.ProfessorCreateException();
     }
 
+    /**
+     * Service method to find the professor by id
+     * It @throws ProfessorNotFoundException if the service fails
+     * @param id
+     * @return
+     */
     @Override
     public Professor getProfessor(int id) {
         Optional<Professor> professorOptional = Optional.ofNullable(repository.findProfessorById(id));
         return professorOptional.orElseThrow(ProfessorExceptionHandler.ProfessorNotFoundException::new);
     }
 
+    /**
+     * Service method to delete professor by id
+     * It @throws ProfessorNotFoundException if the service fails
+     * @param id
+     */
     @Override
     public void deleteProfessor(int id) {
         Optional<Professor> professorById = Optional.ofNullable(repository.findProfessorById(id));
@@ -49,6 +65,11 @@ public class ProfessorServiceImpl implements ProfessorService {
         repository.deleteProfessorById(professor.getId());
     }
 
+    /**
+     * Service method to find all professors with courses
+     * It @throws ProfessorNotFoundException if the service fails
+     * @return
+     */
     @Override
     public List<ProfessorDetails> findAllProfessors() {
         Optional<List<ProfessorDetails>> professorDetailsOptional = Optional.ofNullable(repository.findAllProfessors());

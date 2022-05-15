@@ -5,6 +5,9 @@ import com.philips.informationservice.model.ProfessorDetails;
 
 import java.util.List;
 
+/**
+ * Repository Interface for method declarations of Professor
+ */
 public interface ProfessorRepository {
 
     int createProfessor(Professor professor);

@@ -20,6 +20,11 @@ public class CourseServiceImpl implements CourseService {
         this.repository = repository;
     }
 
+    /**
+     * Service method to create a course object
+     * It @throws CourseAlreadyExistsException or CourseCreateException if the service fails
+     * @param course
+     */
     @Override
     public void createCourse(Course course) {
         Optional<Course> courseById = Optional.ofNullable(repository.findCourseById(course.getId()));
@@ -31,12 +36,23 @@ public class CourseServiceImpl implements CourseService {
             throw new CourseExceptionHandler.CourseCreateException();
     }
 
+    /**
+     * Service method to find the course by id
+     * It @throws CourseNotFoundException if the service fails
+     * @param id
+     * @return
+     */
     @Override
     public Course getCourse(int id) {
         Optional<Course> courseOptional = Optional.ofNullable(repository.findCourseById(id));
         return courseOptional.orElseThrow(CourseExceptionHandler.CourseNotFoundException::new);
     }
 
+    /**
+     * Service method to delete course by id
+     * It @throws CourseNotFoundException if the service fails
+     * @param id
+     */
     @Override
     public void deleteCourse(int id) {
         Optional<Course> courseById = Optional.ofNullable(repository.findCourseById(id));
@@ -48,13 +64,4 @@ public class CourseServiceImpl implements CourseService {
 
     }
 
-    private void waitForCache() {
-        log.info("Cache wait started.");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        log.info("Cache wait ended");
-    }
 }

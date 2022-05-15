@@ -20,6 +20,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         this.repository = repository;
     }
 
+    /**
+     * Service method to create a schedule object
+     * It @throws ScheduleAlreadyExistsException or ScheduleCreateException if the service fails
+     * @param schedule
+     */
     @Override
     public void createSchedule(Schedule schedule) {
         Optional<Schedule> scheduleOptional = Optional.ofNullable(repository
@@ -32,12 +37,25 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ScheduleExceptionHandler.ScheduleCreateException();
     }
 
+    /**
+     * Service method to find the schedule by professor id and course id
+     * It @throws ScheduleNotFoundException if the service fails
+     * @param professor_id
+     * @param course_id
+     * @return
+     */
     @Override
     public Schedule getSchedule(int professor_id, int course_id) {
         Optional<Schedule> scheduleOptional = Optional.ofNullable(repository.findSchedule(professor_id, course_id));
         return scheduleOptional.orElseThrow(ScheduleExceptionHandler.ScheduleNotFoundException::new);
     }
 
+    /**
+     * Service method to schedule by professor id and course id
+     * It @throws ScheduleNotFoundException if the service fails
+     * @param professor_id
+     * @param course_id
+     */
     @Override
     public void deleteSchedule(int professor_id, int course_id) {
         Optional<Schedule> scheduleOptional = Optional.ofNullable(repository.findSchedule(professor_id, course_id));
