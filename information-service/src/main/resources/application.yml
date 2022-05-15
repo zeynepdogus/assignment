@@ -1,7 +1,7 @@
 spring:
     datasource:
         password: 123
-        url: jdbc:postgresql://localhost:5432/infodb
+        url: jdbc:postgresql://localhost:5432/information-db
         username: postgres
     jpa:
         hibernate:
