@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller class for Courses
+ */
 @RestController
 @RequestMapping("/api/v1/course-management")
 @RequiredArgsConstructor
@@ -18,6 +21,12 @@ public class CourseController {
     @Autowired
     public CourseService courseService;
 
+    /**
+     * Creates a rest endpoint to create a new course
+     * Api responses are set for Swagger documentation
+     * @param course
+     * @return
+     */
     @PostMapping("/courses")
     @ApiResponses(value = {@ApiResponse(code = 409, message = "Course already exists."),
             @ApiResponse(code = 500, message = "Course could not be created."),
@@ -27,6 +36,12 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    /**
+     * Creates a rest endpoint to get a course with course id.
+     * Api responses are set for Swagger documentation
+     * @param id
+     * @return
+     */
     @GetMapping("/courses/{id}")
     @ApiResponses(value = {@ApiResponse(code = 404, message = "Course not found.")})
     public ResponseEntity<Course> getCourse(@PathVariable("id") int id) {
@@ -34,6 +49,12 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    /**
+     * Creates a rest endpoint to delete a course if it exists
+     * Api responses are set for Swagger documentation
+     * @param id
+     * @return
+     */
     @DeleteMapping("/courses/{id}")
     @ApiResponses(value = {@ApiResponse(code = 204, message = "Nothing to delete."), @ApiResponse(code = 404, message = "Course not found.")})
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("id") int id) {

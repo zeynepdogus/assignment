@@ -11,9 +11,15 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Swagger Configuration class that is necessary for Swagger Api
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    /**
+     * Bean Definition of Swagger Api
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -24,6 +30,9 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
 
+    /**
+     * @return Api information of the Api that has been created
+     */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Information Service API")
                 .description("Documentation of Information API")
